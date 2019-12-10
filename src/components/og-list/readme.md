@@ -24,9 +24,10 @@
 
 ## Events
 
-| Event          | Description                                | Type               |
-| -------------- | ------------------------------------------ | ------------------ |
-| `itemSelected` | Event is being emitted when value changes. | `CustomEvent<any>` |
+| Event             | Description                                | Type               |
+| ----------------- | ------------------------------------------ | ------------------ |
+| `itemDragStarted` | Event is being emitted when value changes. | `CustomEvent<any>` |
+| `itemSelected`    | Event is being emitted when value changes. | `CustomEvent<any>` |
 
 
 ## CSS Custom Properties

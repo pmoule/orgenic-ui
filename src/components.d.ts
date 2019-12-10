@@ -931,6 +931,10 @@ declare namespace LocalJSX {
     /**
     * Event is being emitted when value changes.
     */
+    'onItemDragStarted'?: (event: CustomEvent<any>) => void;
+    /**
+    * Event is being emitted when value changes.
+    */
     'onItemSelected'?: (event: CustomEvent<any>) => void;
     /**
     * Requires a selection of at least one item. If one item is selected it prevents the user from deselecting it

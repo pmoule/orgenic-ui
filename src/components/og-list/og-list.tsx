@@ -28,7 +28,7 @@ export class OgList {
       }
       this.internalSelection = new Set(newValue as string[]);
     } else {
-      this.internalSelection = new Set([ newValue as string ]);
+      this.internalSelection = new Set([newValue as string]);
     }
   }
 
@@ -98,6 +98,12 @@ export class OgList {
   @Event()
   public itemSelected: EventEmitter<any>;
 
+  /**
+   * Event is being emitted when value changes.
+   */
+  @Event()
+  public itemDragStarted: EventEmitter<any>;
+
   @State()
   private internalSelection: Set<string> = new Set();
 
@@ -127,10 +133,10 @@ export class OgList {
         // add selected key to property array and update internal state
         // extend or replace state and property depending on multiselect
         if (this.multiselect) {
-          this.selected = [ ...Array.from(this.internalSelection), value ];
+          this.selected = [...Array.from(this.internalSelection), value];
           this.internalSelection = new Set(this.selected);
         } else {
-          this.internalSelection = new Set([ value ]);
+          this.internalSelection = new Set([value]);
           this.selected = value;
         }
       }
@@ -139,6 +145,18 @@ export class OgList {
         this.itemSelected.emit(this.items.filter(item => this.internalSelection.has(this.getKeyValue(item))))
       } else {
         this.itemSelected.emit(this.items.find(item => this.getKeyValue(item) === this.selected));
+      }
+    }
+  }
+
+  public onDragStart(event: any, item: any): void {
+    event.preventDefault();
+    if (!this.disabled && !this.isItemDisabled(item)) {
+      // emit new property value
+      if (this.multiselect) {
+        this.itemDragStarted.emit(this.items.filter(item => this.internalSelection.has(this.getKeyValue(item))))
+      } else {
+        this.itemDragStarted.emit(item);
       }
     }
   }
@@ -174,7 +192,8 @@ export class OgList {
               value={item[this.valueProperty]}
               is-selected={this.isItemSelected(item)}
               is-disabled={this.isItemDisabled(item)}
-              onClick={() => this.listItemSelected(item)}>
+              onClick={() => this.listItemSelected(item)}
+              onDragStart={(ev) => this.onDragStart(ev, item)}>
             </og-list-item>
           )
       }
