@@ -951,7 +951,15 @@ declare namespace LocalJSX {
     /**
     * Event is being emitted when value changes.
     */
+    'onItemDraggedOver'?: (event: CustomEvent<any>) => void;
+    /**
+    * Event is being emitted when value changes.
+    */
     'onItemDropped'?: (event: CustomEvent<any>) => void;
+    /**
+    * Event is being emitted when value changes.
+    */
+    'onItemHovered'?: (event: CustomEvent<any>) => void;
     /**
     * Event is being emitted when value changes.
     */

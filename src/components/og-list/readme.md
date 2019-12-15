@@ -28,8 +28,10 @@
 
 | Event             | Description                                | Type               |
 | ----------------- | ------------------------------------------ | ------------------ |
+| `itemDraggedOver` | Event is being emitted when value changes. | `CustomEvent<any>` |
 | `itemDragStarted` | Event is being emitted when value changes. | `CustomEvent<any>` |
 | `itemDropped`     | Event is being emitted when value changes. | `CustomEvent<any>` |
+| `itemHovered`     | Event is being emitted when value changes. | `CustomEvent<any>` |
 | `itemSelected`    | Event is being emitted when value changes. | `CustomEvent<any>` |
 
 

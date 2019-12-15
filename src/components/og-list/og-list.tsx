@@ -116,7 +116,19 @@ export class OgList {
    * Event is being emitted when value changes.
    */
   @Event()
+  public itemHovered: EventEmitter<any>;
+
+  /**
+   * Event is being emitted when value changes.
+   */
+  @Event()
   public itemDragStarted: EventEmitter<any>;
+
+  /**
+   * Event is being emitted when value changes.
+   */
+  @Event()
+  public itemDraggedOver: EventEmitter<any>
 
   /**
    * Event is being emitted when value changes.
@@ -129,6 +141,13 @@ export class OgList {
 
   public componentDidLoad() {
     this.handleSelectedPropChanged(this.selected);
+  }
+
+  public listItemHovered(item: any): void {
+    if (!this.disabled && !this.isItemDisabled(item)) {
+      const value = this.getKeyValue(item);
+      this.itemHovered.emit(this.items.find(item => this.getKeyValue(item) === value));
+    }
   }
 
   public listItemSelected(item: any): void {
@@ -195,23 +214,16 @@ export class OgList {
     this.itemDropped.emit(event);
   }
 
-  public allowDrop(event: any): boolean {
+  public onDragOver(event: any): void {
     if(!this.dragAndDrop) {
-      return false;
+      return;
     }
 
     if (this.disabled) {
-      return false;
+      return;
     }
     
-    event.preventDefault();
-    event.stopPropagation();
-   
-    if (this.allowDropFunc && !this.allowDropFunc(event)) {
-      return false;
-    }
-
-    return true;
+    this.itemDraggedOver.emit(event);
   }
 
   private hasValidItems(): boolean {
@@ -232,7 +244,7 @@ export class OgList {
 
   public render(): HTMLElement {
     return <ul class="og-list"
-      onDragOver={(ev) => this.allowDrop(ev)}
+      onDragOver={(ev) => this.onDragOver(ev)}
       onDrop={(ev) => this.onDrop(ev)}>
       {
         !this.hasValidItems()
@@ -248,6 +260,7 @@ export class OgList {
               value={item[this.valueProperty]}
               is-selected={this.isItemSelected(item)}
               is-disabled={this.isItemDisabled(item)}
+              onMouseOver={() => this.listItemHovered(item)}
               onClick={() => this.listItemSelected(item)}
               onDragStart={(ev) => this.onDragStart(ev, item)}>
             </og-list-item>
