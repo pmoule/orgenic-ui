@@ -9,8 +9,10 @@
 
 | Property           | Attribute            | Description                                                                                                 | Type                 | Default                |
 | ------------------ | -------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- | ---------------------- |
+| `allowDropFunc`    | --                   | Verification function for valid drop target.                                                                | `Function`           | `undefined`            |
 | `disabled`         | `disabled`           | Determines, whether the control is disabled or not                                                          | `boolean`            | `undefined`            |
 | `disabledProperty` | `disabled-property`  | Set the property for the items to define as disabled. Default: 'disabled'                                   | `string`             | `'disabled'`           |
+| `dragAndDrop`      | `drag-and-drop`      | Enables drag and drop of items.                                                                             | `boolean`            | `undefined`            |
 | `emptyListMessage` | `empty-list-message` | Set the text that will be displayed if the items array is empty.                                            | `string`             | `'No items available'` |
 | `imageUrlProperty` | `image-url-property` | Set the property for the items to define as image url. *Optional* Default: no image                         | `string`             | `undefined`            |
 | `items`            | --                   | An array of items to choose from                                                                            | `any[]`              | `undefined`            |
@@ -27,6 +29,7 @@
 | Event             | Description                                | Type               |
 | ----------------- | ------------------------------------------ | ------------------ |
 | `itemDragStarted` | Event is being emitted when value changes. | `CustomEvent<any>` |
+| `itemDropped`     | Event is being emitted when value changes. | `CustomEvent<any>` |
 | `itemSelected`    | Event is being emitted when value changes. | `CustomEvent<any>` |
 
 

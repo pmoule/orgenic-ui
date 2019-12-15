@@ -84,7 +84,7 @@ export class OgListItem {
   public isDisabled: boolean;
 
   public render(): HTMLElement {
-    return <li draggable class={"og-list-item" + (this.isDisabled ? " og-list-item--disabled" : "")}>
+    return <li class={"og-list-item" + (this.isDisabled ? " og-list-item--disabled" : "")}>
       <div class={"og-list-item__content" + (this.isSelected ? " og-list-item__content--selected" : "")}>
         {
           this.showImage && <div class="og-list-item__icon">

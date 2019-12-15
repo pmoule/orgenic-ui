@@ -81,6 +81,20 @@ export class OgList {
   public multiselect: boolean;
 
   /**
+   * Enables drag and drop of items.
+   */
+  @Prop()
+  public dragAndDrop: boolean;
+
+  /**
+   * Verification function for valid drop target. 
+   * @param {event} event
+   * @returns {boolean} True, if component is a valid drop target.
+   */
+  @Prop()
+  public allowDropFunc: Function;
+
+  /**
    * Requires a selection of at least one item. If one item is selected it prevents the user from deselecting it
    */
   @Prop()
@@ -103,6 +117,12 @@ export class OgList {
    */
   @Event()
   public itemDragStarted: EventEmitter<any>;
+
+  /**
+   * Event is being emitted when value changes.
+   */
+  @Event()
+  public itemDropped: EventEmitter<any>;
 
   @State()
   private internalSelection: Set<string> = new Set();
@@ -150,15 +170,48 @@ export class OgList {
   }
 
   public onDragStart(event: any, item: any): void {
-    event.preventDefault();
-    if (!this.disabled && !this.isItemDisabled(item)) {
-      // emit new property value
-      if (this.multiselect) {
-        this.itemDragStarted.emit(this.items.filter(item => this.internalSelection.has(this.getKeyValue(item))))
-      } else {
-        this.itemDragStarted.emit(item);
-      }
+    if(!this.dragAndDrop) {
+      return;
     }
+
+    if (this.disabled || this.isItemDisabled(item)) {
+      return; 
+    }
+    
+    event.preventDefault();
+    this.itemDragStarted.emit({event: event, item: item});
+  }
+
+  public onDrop(event: any): void {
+    if (!this.dragAndDrop) {
+      return;
+    }
+
+    if (this.disabled) {
+      return;
+    }
+
+    event.preventDefault();
+    this.itemDropped.emit(event);
+  }
+
+  public allowDrop(event: any): boolean {
+    if(!this.dragAndDrop) {
+      return false;
+    }
+
+    if (this.disabled) {
+      return false;
+    }
+    
+    event.preventDefault();
+    event.stopPropagation();
+   
+    if (this.allowDropFunc && !this.allowDropFunc(event)) {
+      return false;
+    }
+
+    return true;
   }
 
   private hasValidItems(): boolean {
@@ -178,13 +231,16 @@ export class OgList {
   }
 
   public render(): HTMLElement {
-    return <ul class="og-list">
+    return <ul class="og-list"
+      onDragOver={(ev) => this.allowDrop(ev)}
+      onDrop={(ev) => this.onDrop(ev)}>
       {
         !this.hasValidItems()
           ? <og-list-item label={this.emptyListMessage}></og-list-item>
           : this.items.map((item): HTMLElement =>
             <og-list-item
               key={this.getKeyValue(item)}
+              draggable={this.dragAndDrop}
               label={item[this.labelProperty]}
               show-image={!!this.imageUrlProperty}
               image={item[this.imageUrlProperty]}

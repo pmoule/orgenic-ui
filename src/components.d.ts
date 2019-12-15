@@ -225,6 +225,10 @@ export namespace Components {
   }
   interface OgList {
     /**
+    * Verification function for valid drop target.
+    */
+    'allowDropFunc': Function;
+    /**
     * Determines, whether the control is disabled or not
     */
     'disabled': boolean;
@@ -232,6 +236,10 @@ export namespace Components {
     * Set the property for the items to define as disabled. Default: 'disabled'
     */
     'disabledProperty': string;
+    /**
+    * Enables drag and drop of items.
+    */
+    'dragAndDrop': boolean;
     /**
     * Set the text that will be displayed if the items array is empty.
     */
@@ -897,6 +905,10 @@ declare namespace LocalJSX {
   }
   interface OgList extends JSXBase.HTMLAttributes<HTMLOgListElement> {
     /**
+    * Verification function for valid drop target.
+    */
+    'allowDropFunc'?: Function;
+    /**
     * Determines, whether the control is disabled or not
     */
     'disabled'?: boolean;
@@ -904,6 +916,10 @@ declare namespace LocalJSX {
     * Set the property for the items to define as disabled. Default: 'disabled'
     */
     'disabledProperty'?: string;
+    /**
+    * Enables drag and drop of items.
+    */
+    'dragAndDrop'?: boolean;
     /**
     * Set the text that will be displayed if the items array is empty.
     */
@@ -932,6 +948,10 @@ declare namespace LocalJSX {
     * Event is being emitted when value changes.
     */
     'onItemDragStarted'?: (event: CustomEvent<any>) => void;
+    /**
+    * Event is being emitted when value changes.
+    */
+    'onItemDropped'?: (event: CustomEvent<any>) => void;
     /**
     * Event is being emitted when value changes.
     */
