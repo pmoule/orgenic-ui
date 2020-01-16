@@ -9,6 +9,7 @@
 
 | Property      | Attribute     | Description                                         | Type      | Default     |
 | ------------- | ------------- | --------------------------------------------------- | --------- | ----------- |
+| `autofocus`   | `autofocus`   | Autofocus component when set.                       | `boolean` | `undefined` |
 | `disabled`    | `disabled`    | Determines, whether the control is disabled or not. | `boolean` | `undefined` |
 | `placeholder` | `placeholder` | Optional placeholder text if input is empty.        | `string`  | `undefined` |
 | `value`       | `value`       | The initial value. Can be updated at runtime.       | `string`  | `undefined` |
