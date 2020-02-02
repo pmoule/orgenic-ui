@@ -15,8 +15,8 @@ import {
   OgDatatableConfig,
 } from './components/og-datatable/interfaces/og-datatable-column-def';
 import {
-  OgListTemplateDefaultOptions,
-} from './components/og-list-template-default/og-list-template-default.interface';
+  OgListItemOptions,
+} from './components/og-list-item/og-list-item.interface';
 
 export namespace Components {
   interface OgButton {
@@ -84,6 +84,32 @@ export namespace Components {
     * The selected value of the combobox
     */
     'value': string;
+  }
+  interface OgComboboxOptions {
+    /**
+    * Determines, whether the options are disabled or not
+    */
+    'disabled': boolean;
+    /**
+    * Set the property for the items to define as label. Default: "label"
+    */
+    'itemLabelProperty': string;
+    /**
+    * Set the property for the items to define as value. Default: "value"
+    */
+    'itemValueProperty': string;
+    /**
+    * An array of items to choose from
+    */
+    'items': any[];
+    /**
+    * The selected value
+    */
+    'value': string;
+    /**
+    * Determines, whether the options are visible or not
+    */
+    'visible': boolean;
   }
   interface OgConfirmDialog {
     /**
@@ -208,7 +234,7 @@ export namespace Components {
     */
     'minSize': string;
     /**
-    * The weight defines the resize behavior. A component with weight 2 will be twice as large as a component with weight 1.. Default: "1"
+    * The weight defines the resize behavior. A component with weight 2 will be twice as large as a component with weight 1. Default: "1"
     */
     'weight': number;
   }
@@ -232,13 +258,29 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
+    * Set the property for the items to define as disabled. Default: 'disabled'
+    */
+    'disabledProperty': string;
+    /**
     * Set the text that will be displayed if the items array is empty.
     */
     'emptyListMessage': string;
     /**
+    * Set the property for the items to define as image url. *Optional* Default: no image
+    */
+    'imageUrlProperty'?: string;
+    /**
     * An array of items to choose from
     */
     'items': any[];
+    /**
+    * Set the property for the items to define as value. Default: 'key'
+    */
+    'keyProperty': string;
+    /**
+    * Set the property for the items to define as label. Default: 'label'
+    */
+    'labelProperty': string;
     /**
     * Enables selection of multiple items
     */
@@ -251,10 +293,20 @@ export namespace Components {
     * Key(s) of the selected list item(s)
     */
     'selected': string | string[];
+    /**
+    * Name of the template (component) we want to use as list item.
+    */
     'template': string;
+    /**
+    * Contains an Object with options to match template properties.  Mandatory: {key: any}  Default template: {key: any, label: string, subline: string, overline: string, image: string, value: string, disabled: string}
+    */
     'templateOptions': any;
+    /**
+    * Set the property for the items to define as value. *Optional* Default: no value
+    */
+    'valueProperty': string;
   }
-  interface OgListTemplateDefault {
+  interface OgListItem {
     /**
     * Set the flag, it this list item is in disabled state.
     */
@@ -266,7 +318,7 @@ export namespace Components {
     /**
     * Template options
     */
-    'options': OgListTemplateDefaultOptions;
+    'options': OgListItemOptions;
     /**
     * Set the flag, if this list item is in selected state.
     */
@@ -339,6 +391,44 @@ export namespace Components {
     */
     'value': string;
   }
+  interface OgProgress {
+    /**
+    * Determines, whether the bounce animation is shown or not
+    */
+    'bounce': boolean;
+    /**
+    * The percent value of the progress buffer (the second bar)
+    */
+    'buffer': number;
+    /**
+    * Determines, whether the control is hidden or not
+    */
+    'hidden': boolean;
+    /**
+    * Determines, whether the control is an indeterminate bar or not
+    */
+    'indeterminate': boolean;
+    /**
+    * The max value of the progress
+    */
+    'max': number;
+    /**
+    * Determines, whether the query animation is shown or not
+    */
+    'query': boolean;
+    /**
+    * The height (s, m , l) of the progress bar
+    */
+    'size': 's' | 'm' | 'l';
+    /**
+    * Determines, whether the stream animation is shown or not
+    */
+    'stream': boolean;
+    /**
+    * The percent value of the progress
+    */
+    'value': number;
+  }
   interface OgRadioButton {
     /**
     * Determines, whether the radio button is checked or not
@@ -378,6 +468,16 @@ export namespace Components {
     * The value of the selected radio button.
     */
     'value': string;
+  }
+  interface OgSpinner {
+    /**
+    * Determines, whether the control is hidden or not
+    */
+    'hidden': boolean;
+    /**
+    * The size of the spinner (s/m/l)
+    */
+    'size': 's' | 'm' | 'l';
   }
   interface OgTab {
     /**
@@ -466,6 +566,12 @@ declare global {
     new (): HTMLOgComboboxElement;
   };
 
+  interface HTMLOgComboboxOptionsElement extends Components.OgComboboxOptions, HTMLStencilElement {}
+  var HTMLOgComboboxOptionsElement: {
+    prototype: HTMLOgComboboxOptionsElement;
+    new (): HTMLOgComboboxOptionsElement;
+  };
+
   interface HTMLOgConfirmDialogElement extends Components.OgConfirmDialog, HTMLStencilElement {}
   var HTMLOgConfirmDialogElement: {
     prototype: HTMLOgConfirmDialogElement;
@@ -526,10 +632,10 @@ declare global {
     new (): HTMLOgListElement;
   };
 
-  interface HTMLOgListTemplateDefaultElement extends Components.OgListTemplateDefault, HTMLStencilElement {}
-  var HTMLOgListTemplateDefaultElement: {
-    prototype: HTMLOgListTemplateDefaultElement;
-    new (): HTMLOgListTemplateDefaultElement;
+  interface HTMLOgListItemElement extends Components.OgListItem, HTMLStencilElement {}
+  var HTMLOgListItemElement: {
+    prototype: HTMLOgListItemElement;
+    new (): HTMLOgListItemElement;
   };
 
   interface HTMLOgMessageDialogElement extends Components.OgMessageDialog, HTMLStencilElement {}
@@ -550,6 +656,12 @@ declare global {
     new (): HTMLOgPasswordInputElement;
   };
 
+  interface HTMLOgProgressElement extends Components.OgProgress, HTMLStencilElement {}
+  var HTMLOgProgressElement: {
+    prototype: HTMLOgProgressElement;
+    new (): HTMLOgProgressElement;
+  };
+
   interface HTMLOgRadioButtonElement extends Components.OgRadioButton, HTMLStencilElement {}
   var HTMLOgRadioButtonElement: {
     prototype: HTMLOgRadioButtonElement;
@@ -560,6 +672,12 @@ declare global {
   var HTMLOgRadioButtonGroupElement: {
     prototype: HTMLOgRadioButtonGroupElement;
     new (): HTMLOgRadioButtonGroupElement;
+  };
+
+  interface HTMLOgSpinnerElement extends Components.OgSpinner, HTMLStencilElement {}
+  var HTMLOgSpinnerElement: {
+    prototype: HTMLOgSpinnerElement;
+    new (): HTMLOgSpinnerElement;
   };
 
   interface HTMLOgTabElement extends Components.OgTab, HTMLStencilElement {}
@@ -597,6 +715,7 @@ declare global {
     'og-card': HTMLOgCardElement;
     'og-checkbox': HTMLOgCheckboxElement;
     'og-combobox': HTMLOgComboboxElement;
+    'og-combobox-options': HTMLOgComboboxOptionsElement;
     'og-confirm-dialog': HTMLOgConfirmDialogElement;
     'og-datatable': HTMLOgDatatableElement;
     'og-datepicker': HTMLOgDatepickerElement;
@@ -607,12 +726,14 @@ declare global {
     'og-layout-child': HTMLOgLayoutChildElement;
     'og-layout-container': HTMLOgLayoutContainerElement;
     'og-list': HTMLOgListElement;
-    'og-list-template-default': HTMLOgListTemplateDefaultElement;
+    'og-list-item': HTMLOgListItemElement;
     'og-message-dialog': HTMLOgMessageDialogElement;
     'og-number-input': HTMLOgNumberInputElement;
     'og-password-input': HTMLOgPasswordInputElement;
+    'og-progress': HTMLOgProgressElement;
     'og-radio-button': HTMLOgRadioButtonElement;
     'og-radio-button-group': HTMLOgRadioButtonGroupElement;
+    'og-spinner': HTMLOgSpinnerElement;
     'og-tab': HTMLOgTabElement;
     'og-tab-container': HTMLOgTabContainerElement;
     'og-text-input': HTMLOgTextInputElement;
@@ -709,6 +830,36 @@ declare namespace LocalJSX {
     * The selected value of the combobox
     */
     'value'?: string;
+  }
+  interface OgComboboxOptions extends JSXBase.HTMLAttributes<HTMLOgComboboxOptionsElement> {
+    /**
+    * Determines, whether the options are disabled or not
+    */
+    'disabled'?: boolean;
+    /**
+    * Set the property for the items to define as label. Default: "label"
+    */
+    'itemLabelProperty'?: string;
+    /**
+    * Set the property for the items to define as value. Default: "value"
+    */
+    'itemValueProperty'?: string;
+    /**
+    * An array of items to choose from
+    */
+    'items'?: any[];
+    /**
+    * Event is being emitted when value changes.
+    */
+    'onItemSelected'?: (event: CustomEvent<any>) => void;
+    /**
+    * The selected value
+    */
+    'value'?: string;
+    /**
+    * Determines, whether the options are visible or not
+    */
+    'visible'?: boolean;
   }
   interface OgConfirmDialog extends JSXBase.HTMLAttributes<HTMLOgConfirmDialogElement> {
     /**
@@ -846,7 +997,7 @@ declare namespace LocalJSX {
     */
     'minSize'?: string;
     /**
-    * The weight defines the resize behavior. A component with weight 2 will be twice as large as a component with weight 1.. Default: "1"
+    * The weight defines the resize behavior. A component with weight 2 will be twice as large as a component with weight 1. Default: "1"
     */
     'weight'?: number;
   }
@@ -870,13 +1021,29 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
+    * Set the property for the items to define as disabled. Default: 'disabled'
+    */
+    'disabledProperty'?: string;
+    /**
     * Set the text that will be displayed if the items array is empty.
     */
     'emptyListMessage'?: string;
     /**
+    * Set the property for the items to define as image url. *Optional* Default: no image
+    */
+    'imageUrlProperty'?: string;
+    /**
     * An array of items to choose from
     */
     'items'?: any[];
+    /**
+    * Set the property for the items to define as value. Default: 'key'
+    */
+    'keyProperty'?: string;
+    /**
+    * Set the property for the items to define as label. Default: 'label'
+    */
+    'labelProperty'?: string;
     /**
     * Enables selection of multiple items
     */
@@ -893,10 +1060,20 @@ declare namespace LocalJSX {
     * Key(s) of the selected list item(s)
     */
     'selected'?: string | string[];
+    /**
+    * Name of the template (component) we want to use as list item.
+    */
     'template'?: string;
+    /**
+    * Contains an Object with options to match template properties.  Mandatory: {key: any}  Default template: {key: any, label: string, subline: string, overline: string, image: string, value: string, disabled: string}
+    */
     'templateOptions'?: any;
+    /**
+    * Set the property for the items to define as value. *Optional* Default: no value
+    */
+    'valueProperty'?: string;
   }
-  interface OgListTemplateDefault extends JSXBase.HTMLAttributes<HTMLOgListTemplateDefaultElement> {
+  interface OgListItem extends JSXBase.HTMLAttributes<HTMLOgListItemElement> {
     /**
     * Set the flag, it this list item is in disabled state.
     */
@@ -908,7 +1085,7 @@ declare namespace LocalJSX {
     /**
     * Template options
     */
-    'options'?: OgListTemplateDefaultOptions;
+    'options'?: OgListItemOptions;
     /**
     * Set the flag, if this list item is in selected state.
     */
@@ -1008,6 +1185,44 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface OgProgress extends JSXBase.HTMLAttributes<HTMLOgProgressElement> {
+    /**
+    * Determines, whether the bounce animation is shown or not
+    */
+    'bounce'?: boolean;
+    /**
+    * The percent value of the progress buffer (the second bar)
+    */
+    'buffer'?: number;
+    /**
+    * Determines, whether the control is hidden or not
+    */
+    'hidden'?: boolean;
+    /**
+    * Determines, whether the control is an indeterminate bar or not
+    */
+    'indeterminate'?: boolean;
+    /**
+    * The max value of the progress
+    */
+    'max'?: number;
+    /**
+    * Determines, whether the query animation is shown or not
+    */
+    'query'?: boolean;
+    /**
+    * The height (s, m , l) of the progress bar
+    */
+    'size'?: 's' | 'm' | 'l';
+    /**
+    * Determines, whether the stream animation is shown or not
+    */
+    'stream'?: boolean;
+    /**
+    * The percent value of the progress
+    */
+    'value'?: number;
+  }
   interface OgRadioButton extends JSXBase.HTMLAttributes<HTMLOgRadioButtonElement> {
     /**
     * Determines, whether the radio button is checked or not
@@ -1049,6 +1264,16 @@ declare namespace LocalJSX {
     * The value of the selected radio button.
     */
     'value'?: string;
+  }
+  interface OgSpinner extends JSXBase.HTMLAttributes<HTMLOgSpinnerElement> {
+    /**
+    * Determines, whether the control is hidden or not
+    */
+    'hidden'?: boolean;
+    /**
+    * The size of the spinner (s/m/l)
+    */
+    'size'?: 's' | 'm' | 'l';
   }
   interface OgTab extends JSXBase.HTMLAttributes<HTMLOgTabElement> {
     /**
@@ -1140,6 +1365,7 @@ declare namespace LocalJSX {
     'og-card': OgCard;
     'og-checkbox': OgCheckbox;
     'og-combobox': OgCombobox;
+    'og-combobox-options': OgComboboxOptions;
     'og-confirm-dialog': OgConfirmDialog;
     'og-datatable': OgDatatable;
     'og-datepicker': OgDatepicker;
@@ -1150,12 +1376,14 @@ declare namespace LocalJSX {
     'og-layout-child': OgLayoutChild;
     'og-layout-container': OgLayoutContainer;
     'og-list': OgList;
-    'og-list-template-default': OgListTemplateDefault;
+    'og-list-item': OgListItem;
     'og-message-dialog': OgMessageDialog;
     'og-number-input': OgNumberInput;
     'og-password-input': OgPasswordInput;
+    'og-progress': OgProgress;
     'og-radio-button': OgRadioButton;
     'og-radio-button-group': OgRadioButtonGroup;
+    'og-spinner': OgSpinner;
     'og-tab': OgTab;
     'og-tab-container': OgTabContainer;
     'og-text-input': OgTextInput;
