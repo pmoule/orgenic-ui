@@ -25,35 +25,37 @@ export class OgCard {
   /**
    * Check if a given name exists as a slot inside this component.
    */
-  private hasSlot(name: string): boolean {
+  private hasSlot(name: string): boolean {
     const slot = this.hostElement.querySelector(`[slot="${name}"]`);
     return slot !== null;
   }
 
   public render(): HTMLElement {
     return (
-      <div class="og-card">
-        {
-          (this.hasSlot('header') || this.name) && <div class="og-card__header">
+      <div class="og-card__border">
+        <div class="og-card">
           {
-            this.name
-              ? <span class="og-card__title">{ this.name }</span>
-              : ""
+            (this.hasSlot('header') || this.name) && <div class="og-card__header">
+              {
+                this.name
+                  ? <span class="og-card__title">{this.name}</span>
+                  : ""
+              }
+              <slot name="header"></slot>
+            </div>
           }
-          <slot name="header"></slot>
+          <div class="og-card__content">
+            {/* allow the user to use an unnamed slot instead of always having to assign as "content" */}
+            <slot></slot>
+            <slot name="content"></slot>
           </div>
-        }
-        <div class="og-card__content">
-          {/* allow the user to use an unnamed slot instead of always having to assign as "content" */}
-          <slot></slot>
-          <slot name="content"></slot>
-        </div>
 
-        {
-          this.hasSlot('footer') && <div class="og-card__footer">
-            <slot name="footer"></slot>
-          </div>
-        }
+          {
+            this.hasSlot('footer') && <div class="og-card__footer">
+              <slot name="footer"></slot>
+            </div>
+          }
+        </div>
       </div>
     );
   }

@@ -4,7 +4,7 @@
  * @prop --og-card-BorderRadius: Border radius of the cards border
  * @prop --og-card-BorderWidth: Border width of the cards border
  * @prop --og-card-BoxShadow: Box shadow of the card
- * @prop --og-card-Margin: Margin around the card
+ * @prop --og-card-Padding: Padding around the card
  * @prop --og-card__header-BorderColor: Border color of the cards header border
  * @prop --og-card__header-BorderStyle: Border style of the cards header border
  * @prop --og-card__header-BorderWidth: Border width of the cards header border
@@ -25,7 +25,7 @@
     --og-card-BorderWidth:              var(--OG-BORDER-WIDTH,          #{$og-border-width});
 
     --og-card-BoxShadow:                0 0 8px rgba(0, 0, 0, .3);
-    --og-card-Margin:                   8px;
+    --og-card-Padding:                  8px;
 
     // Header
     --og-card__header-BorderColor:      var(--OG-COLOR-SHADE--100--60,  #{$og-color-shade--100--60});
@@ -55,7 +55,15 @@
     *, *::before, *::after { box-sizing: inherit; }
 }
 
+.og-card__border {
+    display: flex;
+    padding: var(--og-card-Padding);
+    background-color: transparent;
+    height: 100%;
+}
+
 .og-card {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -67,10 +75,6 @@
     border-radius: var(--og-card-BorderRadius);
 
     box-shadow: var(--og-card-BoxShadow);
-
-    height: 100%;
-
-    margin: var(--og-card-Margin);
 }
 
 .og-card__header {
