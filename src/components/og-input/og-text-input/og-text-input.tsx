@@ -3,9 +3,7 @@ import { h, Component, Prop, Event, EventEmitter, Host } from '@stencil/core';
 @Component({
   tag: 'og-text-input',
   styleUrl: 'og-text-input.scss',
-  shadow: {
-    delegatesFocus: false
-  }
+  shadow: true
 })
 export class OgTextInput {
   private textInput?: HTMLInputElement;

@@ -499,6 +499,10 @@ export namespace Components {
   }
   interface OgTextInput {
     /**
+    * Autofocus component when set.
+    */
+    'autofocus': boolean;
+    /**
     * Determines, whether the control is disabled or not.
     */
     'disabled': boolean;
@@ -1297,6 +1301,10 @@ declare namespace LocalJSX {
     'onTabSelected'?: (event: CustomEvent<number>) => void;
   }
   interface OgTextInput extends JSXBase.HTMLAttributes<HTMLOgTextInputElement> {
+    /**
+    * Autofocus component when set.
+    */
+    'autofocus'?: boolean;
     /**
     * Determines, whether the control is disabled or not.
     */
